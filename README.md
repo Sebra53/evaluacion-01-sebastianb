@@ -6,12 +6,16 @@
 #instalacion de node 
 #instalacon de nestjs = npm i -g @nestjs/cli
 
+#dependencias de validacion y swagger
 
+#npm i class-validator class-transformer
+#npm i @nestjs/swagger swagger-ui-express
 
+#para la persistencia co typeorm
+#npm i @nestjs/typeorm typeorm mysql2
 
-
-
-
+#copia de variables de entorno
+#cp .env.example .env
 
 
 
