@@ -23,17 +23,17 @@
     }
 
     create(dto: CreateServicioDto) {
-      const fecha = new Date(dto.fechaSolicitud)
-      if (fecha > new Date()) {
-        throw new BadRequestException({ error: 'La fecha no puede ser posterior a la fecha actual' })
+    const fecha = new Date(dto.fechaSolicitud);
+    if (fecha > new Date()) {
+      throw new BadRequestException({ error: 'La fecha no puede ser posterior a la fecha actual' });
     }
 
     const ent = this.repo.create({
       ...dto,
-      estado: 'Pendiente', // estado inicial a Pendiente
-    })
-    return this.repo.save(ent)
-  }
+      estado: 'Pendiente',
+    });
+    return this.repo.save(ent);
+    }
 
     async update(id: number, dto: UpdateServicioDto) {
     const prev = await this.findOne(id)
@@ -47,15 +47,26 @@
   }
 
     async remove(id: number) {
-      const prev = await this.findOne(id)
-      await this.repo.remove(prev)
-      return { ok: true }
-    }
+        const prev = await this.findOne(id);
 
-    async buscar(comuna?: string, rubro?: string) {
-      const qb = this.repo.createQueryBuilder('e')
-      if (comuna) qb.andWhere('e.comuna = :comuna', { comuna })
-      if (rubro) qb.andWhere('e.rubro = :rubro', { rubro })
-      return qb.getMany()
-    }
+        
+        if (prev.estado === 'En Proceso') {
+          throw new BadRequestException({ error: 'Una servicio en estado "En Proceso" no puede ser eliminada' });
+        }
+
+        if (prev.estado !== 'Finalizada') {
+          throw new BadRequestException({ error: 'Para eliminar la servicio debe encontrarse en estado "Finalizada"' });
+        }
+
+        await this.repo.remove(prev);
+        return { ok: true };
+      }
+
+    async buscar(estado?: string, prioridad?: string, categoria?: string) {
+    const qb = this.repo.createQueryBuilder('s');
+    if (estado) qb.andWhere('s.estado = :estado', { estado });
+    if (prioridad) qb.andWhere('s.prioridad = :prioridad', { prioridad });
+    if (categoria) qb.andWhere('s.categoria = :categoria', { categoria });
+    return qb.getMany();
   }
+}

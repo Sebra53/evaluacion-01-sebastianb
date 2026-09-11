@@ -17,6 +17,20 @@
 #copia de variables de entorno
 #cp .env.example .env
 
+#main.ts: entry point inicia el proyecto para acceder al resto de la aplicacion
+
+#app.module.ts lee las variables de entorno
+
+#servicio.entity.ts  define las columnas de la base de datos y le aplica reglas de persistencia
+
+#create-servicio.dto.ts establece la estructura exacta y los nombres de los campos que debe enviar el cliente
+
+#servicio.service.ts paca logica para validar cada dato ingresado y no resuelto en dto 
+#busqueda de id que falla si no esta
+#ingreso de fecha no mayor a la actual
+#validacion de estado y no permite volver a pendiente desde finalizado
+#solo son removibles los servicios finalizados, no en proceso
+
 
 
 
