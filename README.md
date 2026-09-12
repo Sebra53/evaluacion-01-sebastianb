@@ -38,6 +38,10 @@
 
 #seed.ts script opcional para poblar la base de datos con solicitudes de ejemplo
 
+#etapa 4 pruebas y documentacion para verificar reglas
+
+#imagenes de pruebas y correcion de un error en regla estados
+
 
 
 

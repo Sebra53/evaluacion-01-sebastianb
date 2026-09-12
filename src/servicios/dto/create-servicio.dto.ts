@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger'
-import { IsIn, IsNotEmpty, IsString, MinLength, IsDateString } from 'class-validator'
+import { IsIn, IsNotEmpty, IsString, MinLength, IsDateString, IsOptional } from 'class-validator'
 
 // Listas de valores permitidos para categorías y prioridades
 export const CATEGORIAS = ['Hardware', 'Software', 'Redes', 'Seguridad', 'Soporte Usuario'] as const
@@ -33,17 +33,17 @@ export class CreateServicioDto {
   @IsIn(PRIORIDADES as unknown as string[])
   prioridad: Prioridad
 
-  //Estados arriba
-  @ApiProperty({ enum: ESTADOS })
+  //estados arriba (ahora opcional)
+  @ApiProperty({ enum: ESTADOS, required: false })
+  @IsOptional()
   @IsIn(ESTADOS as unknown as string[])
-  estado: Estado
-
+  estado?: Estado
 
   @ApiProperty({ example: 'impresora no responde y llame al computin' })
   @IsString()
   @MinLength(15)
   descripcion: string
-  
+
   @ApiProperty({ example: '2026-03-30T10:00:00.000Z' })
   @IsDateString()
   @IsNotEmpty()
