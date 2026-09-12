@@ -32,6 +32,13 @@
 #solo son removibles los servicios finalizados, no en proceso
 
 
+#servicios.controller.ts mapea busqueda por estado prioridad y categoria
+
+#servicios.module.ts conecta la entidad servicio con typeorm controladores y servicios
+
+#seed.ts script opcional para poblar la base de datos con solicitudes de ejemplo
+
+
 
 
 
